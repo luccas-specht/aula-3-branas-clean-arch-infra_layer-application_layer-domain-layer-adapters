@@ -9,14 +9,14 @@ export default class Account {
     readonly name: string,
     readonly email: string,
     cpf: string,
-    readonly carPlate: string,
+    readonly carPlate: string | null,
     readonly isPassenger: boolean,
     readonly isDriver: boolean
   ) {
     if (!name.match(/[a-zA-Z] [a-zA-Z]+/)) throw new Error('Invalid name');
     if (!email.match(/^(.+)@(.+)$/)) throw new Error('Invalid email');
     this.cpf = new Cpf(cpf);
-    if (isDriver && !carPlate.match(/[A-Z]{3}[0-9]{4}/))
+    if (isDriver && carPlate && !carPlate.match(/[A-Z]{3}[0-9]{4}/))
       throw new Error('Invalid car plate');
   }
 
@@ -24,7 +24,7 @@ export default class Account {
     name: string,
     email: string,
     cpf: string,
-    carPlate: string,
+    carPlate: string | null,
     isPassenger: boolean,
     isDriver: boolean
   ) {

@@ -20,9 +20,9 @@ let mailerGateway: MailerGateway;
 beforeEach(() => {
   connection = new PgPromiseAdapter();
   mailerGateway = new MailerGatewayFake();
-  const accountRepository = new AccountRepositoryDatabase(connection);
-  signup = new Signup(accountRepository, mailerGateway);
-  getAccount = new GetAccount(accountRepository);
+  const accountRepositoryDatabase = new AccountRepositoryDatabase(connection);
+  signup = new Signup(accountRepositoryDatabase, mailerGateway);
+  getAccount = new GetAccount(accountRepositoryDatabase);
 });
 
 test('Deve criar uma conta de passageiro', async function () {
@@ -31,6 +31,7 @@ test('Deve criar uma conta de passageiro', async function () {
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   const outputSignup = await signup.execute(inputSignup);
   expect(outputSignup.accountId).toBeDefined();
@@ -63,6 +64,7 @@ test('Não deve criar uma conta de passageiro com nome inválido', async functio
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   await expect(() => signup.execute(input)).rejects.toThrow(
     new Error('Invalid name')
@@ -76,6 +78,7 @@ test('Não deve criar uma conta de passageiro com email inválido', async functi
     email: `john.doe${Math.random()}`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   await expect(() => signup.execute(input)).rejects.toThrow(
     new Error('Invalid email')
@@ -89,6 +92,7 @@ test('Não deve criar uma conta de passageiro com cpf inválido', async function
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '9745632155810',
     isPassenger: true,
+    carPlate: null,
   };
   await expect(() => signup.execute(input)).rejects.toThrow(
     new Error('Invalid cpf')
@@ -101,6 +105,7 @@ test('Não deve criar uma conta de passageiro com email duplicado', async functi
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   await signup.execute(input);
   await expect(() => signup.execute(input)).rejects.toThrowError(
@@ -129,6 +134,7 @@ test('Deve criar uma conta de passageiro com stub do MailerGateway', async funct
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   const outputSignup = await signup.execute(inputSignup);
   expect(outputSignup.accountId).toBeDefined();
@@ -145,6 +151,7 @@ test('Deve criar uma conta de passageiro com stub do AccountRepository', async f
     name: 'John Doe',
     email,
     cpf: '97456321558',
+    carPlate: null,
     isPassenger: true,
   };
   const inputSignupStub = Account.create(
@@ -176,14 +183,15 @@ test('Deve criar uma conta de passageiro com stub do AccountRepository', async f
 });
 
 test('Deve criar uma conta de passageiro com fake do AccountRepository', async function () {
-  const accountRepository = new AccountRepositoryMemory();
-  signup = new Signup(accountRepository, new MailerGatewayFake());
-  getAccount = new GetAccount(accountRepository);
+  const accountRepositoryInMemory = new AccountRepositoryMemory();
+  signup = new Signup(accountRepositoryInMemory, new MailerGatewayFake());
+  getAccount = new GetAccount(accountRepositoryInMemory);
   const inputSignup = {
     name: 'John Doe',
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   const outputSignup = await signup.execute(inputSignup);
   expect(outputSignup.accountId).toBeDefined();
@@ -200,6 +208,7 @@ test('Deve criar uma conta de passageiro com spy no MailerGateway', async functi
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   const outputSignup = await signup.execute(inputSignup);
   expect(outputSignup.accountId).toBeDefined();
@@ -218,6 +227,7 @@ test('Deve criar uma conta de passageiro com mock no MailerGateway', async funct
     email: `john.doe${Math.random()}@gmail.com`,
     cpf: '97456321558',
     isPassenger: true,
+    carPlate: null,
   };
   const mockMailerGateway = sinon.mock(MailerGatewayFake.prototype);
   mockMailerGateway

@@ -3,6 +3,20 @@ import MailerGateway from '../../gateway/MailerGateway';
 import AccountRepository from '../../repository/AccountRepository';
 import Account from '../../../domain/Account';
 
+//DTO
+type Input = {
+  name: string;
+  email: string;
+  cpf: string;
+  carPlate: string | null;
+  isPassenger?: boolean;
+  isDriver?: boolean;
+};
+
+type Output = {
+  accountId: string;
+};
+
 export default class Signup implements UseCase {
   accountRepository: AccountRepository;
   mailerGateway: MailerGateway;
@@ -15,7 +29,7 @@ export default class Signup implements UseCase {
     this.mailerGateway = mailerGateway;
   }
 
-  async execute(input: any): Promise<any> {
+  async execute(input: Input): Promise<Output> {
     const existingAccount = await this.accountRepository.getAccountByEmail(
       input.email
     );
@@ -25,8 +39,8 @@ export default class Signup implements UseCase {
       input.email,
       input.cpf,
       input.carPlate,
-      input.isPassenger,
-      input.isDriver
+      !!input.isPassenger,
+      !!input.isDriver
     );
     await this.accountRepository.saveAccount(account);
     await this.mailerGateway.send(account.email, 'Welcome!', '');

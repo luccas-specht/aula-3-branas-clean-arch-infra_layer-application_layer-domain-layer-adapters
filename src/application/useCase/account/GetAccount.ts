@@ -8,7 +8,7 @@ export default class GetAccount implements UseCase {
     this.accountRepository = accountRepository;
   }
 
-  async execute(accountId: any): Promise<Output> {
+  async execute(accountId: string): Promise<Output> {
     const account = await this.accountRepository.getAccountById(accountId);
     return {
       accountId: account.accountId,
@@ -27,7 +27,7 @@ type Output = {
   name: string;
   email: string;
   cpf: string;
-  carPlate: string;
+  carPlate: string | null;
   isPassenger: boolean;
   isDriver: boolean;
 };
