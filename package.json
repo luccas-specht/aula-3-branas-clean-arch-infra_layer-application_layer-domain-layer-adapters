@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "npx ts-node src/main.ts",
+    "test-all": "npx jest --coverage",
+    "test-watch-all": "npx jest --watchAll --coverage",
+    "test-ride": "npx jest test/application.test.ts --watch --coverage"
+  },
   "dependencies": {
     "@hapi/hapi": "21.3.7",
     "@types/express": "^4.17.17",
