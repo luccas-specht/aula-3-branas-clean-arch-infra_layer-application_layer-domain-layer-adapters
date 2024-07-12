@@ -17,7 +17,7 @@ type Output = {
   accountId: string;
 };
 
-export default class Signup implements UseCase {
+export default class Signup implements UseCase<Input, Output> {
   accountRepository: AccountRepository;
   mailerGateway: MailerGateway;
 

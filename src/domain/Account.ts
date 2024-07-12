@@ -43,10 +43,4 @@ export default class Account {
   getCpf() {
     return this.cpf.getValue();
   }
-
-  block() {
-    // if (this.status === "active") {
-    // this.status = blocked";
-    //}
-  }
 }
