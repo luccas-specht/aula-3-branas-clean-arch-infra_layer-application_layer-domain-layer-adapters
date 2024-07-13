@@ -20,6 +20,7 @@ export default class Account {
       throw new Error('Invalid car plate');
   }
 
+  // static factory method pattern: https://medium.com/@flaviochess/utilizando-static-factories-ao-inv%C3%A9s-de-construtores-189dc8aaa1c6
   static create(
     name: string,
     email: string,

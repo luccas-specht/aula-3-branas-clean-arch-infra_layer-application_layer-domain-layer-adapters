@@ -27,6 +27,7 @@ export default class Ride {
     if (!date) throw new Error('Invalid date');
   }
 
+  // static factory method pattern: https://medium.com/@flaviochess/utilizando-static-factories-ao-inv%C3%A9s-de-construtores-189dc8aaa1c6
   static create(
     passengerId: string,
     driverId: string | null,

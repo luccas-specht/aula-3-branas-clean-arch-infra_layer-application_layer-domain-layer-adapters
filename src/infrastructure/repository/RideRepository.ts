@@ -7,8 +7,8 @@ export class RideRepositoryDatabase implements RideRepository {
 
   async getRideByPassengerId(passengerId: string): Promise<Ride | undefined> {
     const [rideData] = await this.connection.query(
-      'select * from cccat17.ride where passenger_id = $1',
-      [passengerId]
+      'SELECT * FROM cccat17.ride WHERE passenger_id = $1 AND status = $2',
+      [passengerId, 'requested']
     );
 
     if (rideData) {
