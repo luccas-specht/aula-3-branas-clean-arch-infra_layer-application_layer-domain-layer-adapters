@@ -31,6 +31,7 @@ export default class RequestRide implements UseCase<Input, Output> {
   }
 
   async execute(input: Input): Promise<Output> {
+    // application business rules
     const account = await this.accountRepository.getAccountById(
       input.passengerId
     );
@@ -52,6 +53,7 @@ export default class RequestRide implements UseCase<Input, Output> {
       );
     }
 
+    // enterprise business rules
     const newRide = Ride.create(
       input.passengerId,
       null,
