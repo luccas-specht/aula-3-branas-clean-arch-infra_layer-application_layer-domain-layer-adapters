@@ -22,10 +22,10 @@ export default class GetAccount implements UseCase<string, Output> {
     const account = await this.accountRepository.getAccountById(accountId);
     return {
       accountId: account.accountId,
-      name: account.name,
-      email: account.email,
+      name: account.getName(),
+      email: account.getValue(),
       cpf: account.getCpf(),
-      carPlate: account.carPlate,
+      carPlate: account.getCarPlate(),
       isPassenger: account.isPassenger,
       isDriver: account.isDriver,
     };

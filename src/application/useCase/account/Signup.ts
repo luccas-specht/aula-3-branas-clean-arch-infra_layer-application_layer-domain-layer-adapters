@@ -43,7 +43,7 @@ export default class Signup implements UseCase<Input, Output> {
       !!input.isDriver
     );
     await this.accountRepository.saveAccount(account);
-    await this.mailerGateway.send(account.email, 'Welcome!', '');
+    await this.mailerGateway.send(account.getValue(), 'Welcome!', '');
     return {
       accountId: account.accountId,
     };

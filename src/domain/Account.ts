@@ -1,23 +1,28 @@
 import crypto from 'crypto';
 import Cpf from './Cpf';
+import Email from './Email';
+import CarPlate from './CarPlate';
+import Name from './Name';
 
 export default class Account {
+  private name: Name;
   private cpf: Cpf;
+  private email: Email;
+  private carPlate: CarPlate;
 
   constructor(
     readonly accountId: string,
-    readonly name: string,
-    readonly email: string,
+    name: string,
+    email: string,
     cpf: string,
-    readonly carPlate: string | null,
+    carPlate: string | null,
     readonly isPassenger: boolean,
     readonly isDriver: boolean
   ) {
-    if (!name.match(/[a-zA-Z] [a-zA-Z]+/)) throw new Error('Invalid name');
-    if (!email.match(/^(.+)@(.+)$/)) throw new Error('Invalid email');
+    this.name = new Name(name);
+    this.email = new Email(email);
     this.cpf = new Cpf(cpf);
-    if (isDriver && carPlate && !carPlate.match(/[A-Z]{3}[0-9]{4}/))
-      throw new Error('Invalid car plate');
+    this.carPlate = new CarPlate(isDriver ? carPlate : null);
   }
 
   // static factory method pattern: https://medium.com/@flaviochess/utilizando-static-factories-ao-inv%C3%A9s-de-construtores-189dc8aaa1c6
@@ -43,5 +48,17 @@ export default class Account {
 
   getCpf() {
     return this.cpf.getValue();
+  }
+
+  getValue() {
+    return this.email.getValue();
+  }
+
+  getCarPlate() {
+    return this.carPlate.getValue();
+  }
+
+  getName() {
+    return this.name.getValue();
   }
 }
