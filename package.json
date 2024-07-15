@@ -8,7 +8,7 @@
     "dev": "nodemon --exec ts-node src/main.ts",
     "test-all": "npx jest --coverage",
     "test-watch-all": "npx jest --watchAll --coverage",
-    "test-ride": "npx jest test/integration/api.test.ts --watch --coverage"
+    "test-ride": "npx jest test/unit/useCase/ride/getRide.test.ts --watch --coverage"
   },
   "dependencies": {
     "@hapi/hapi": "21.3.7",
