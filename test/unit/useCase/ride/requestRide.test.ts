@@ -45,10 +45,8 @@ test('Should found an account valid when request a ride', async () => {
   expect(rideCreated?.driverId).toBe(null);
   expect(rideCreated).toHaveProperty('fare');
   expect(rideCreated).toHaveProperty('distance');
-  expect(rideCreated).toHaveProperty('fromLat');
-  expect(rideCreated).toHaveProperty('fromLong');
-  expect(rideCreated).toHaveProperty('toLat');
-  expect(rideCreated).toHaveProperty('toLong');
+  expect(rideCreated).toHaveProperty('from');
+  expect(rideCreated).toHaveProperty('to');
   expect(rideCreated).toHaveProperty('date');
   expect(rideCreated?.date.getTime()).toBeCloseTo(new Date().getTime(), -2);
 });

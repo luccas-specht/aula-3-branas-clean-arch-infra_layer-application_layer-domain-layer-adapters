@@ -4,6 +4,7 @@ import Email from './Email';
 import CarPlate from './CarPlate';
 import Name from './Name';
 
+// Entity, forma um aggregate liderado por Account(Root) que contém Name, Email, Cpf e CarPlate
 export default class Account {
   private name: Name;
   private cpf: Cpf;

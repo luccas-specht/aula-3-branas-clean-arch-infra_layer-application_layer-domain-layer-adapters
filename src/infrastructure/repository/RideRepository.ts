@@ -65,10 +65,10 @@ export class RideRepositoryDatabase implements RideRepository {
         ride.status,
         ride.fare,
         ride.distance,
-        ride.fromLat,
-        ride.fromLong,
-        ride.toLat,
-        ride.toLong,
+        ride.getFrom().getLat(),
+        ride.getFrom().getLong(),
+        ride.getTo().getLat(),
+        ride.getTo().getLong(),
         ride.date,
       ]
     );

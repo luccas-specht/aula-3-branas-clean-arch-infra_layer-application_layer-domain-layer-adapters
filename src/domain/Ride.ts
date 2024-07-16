@@ -1,6 +1,10 @@
 import crypto from 'crypto';
+import Coord from './Coord';
 
 export default class Ride {
+  private from: Coord;
+  private to: Coord;
+
   constructor(
     readonly rideId: string,
     readonly passengerId: string,
@@ -8,23 +12,21 @@ export default class Ride {
     readonly status: string,
     readonly fare: number,
     readonly distance: number,
-    readonly fromLat: string,
-    readonly fromLong: string,
-    readonly toLat: string,
-    readonly toLong: string,
+    fromLat: string,
+    fromLong: string,
+    toLat: string,
+    toLong: string,
     readonly date: Date
   ) {
     if (!passengerId) throw new Error('Invalid passengerId');
-    if (!fromLat) throw new Error('Invalid fromLat');
-    if (!fromLong) throw new Error('Invalid fromLong');
-    if (!toLat) throw new Error('Invalid toLat');
-    if (!toLong) throw new Error('Invalid toLong');
     if (!rideId) throw new Error('Invalid rideId');
     if (driverId !== null && !driverId) throw new Error('Invalid driverId');
     if (!status) throw new Error('Invalid status');
     if (!fare) throw new Error('Invalid fare');
     if (!distance) throw new Error('Invalid distance');
     if (!date) throw new Error('Invalid date');
+    this.from = new Coord(fromLong, fromLat);
+    this.to = new Coord(toLong, toLat);
   }
 
   // static factory method pattern: https://medium.com/@flaviochess/utilizando-static-factories-ao-inv%C3%A9s-de-construtores-189dc8aaa1c6
@@ -55,5 +57,13 @@ export default class Ride {
       toLong,
       date
     );
+  }
+
+  getFrom() {
+    return this.from;
+  }
+
+  getTo() {
+    return this.to;
   }
 }
